@@ -5,7 +5,7 @@ from selenium.webdriver.chrome.options import Options
 """ ДЗ 4 часть 1  
 конфиг для test_items.py  и register_python.py"""
 def pytest_addoption(parser):
-    parser.addoption('--language', action='store', default=None,
+    parser.addoption('--language', action='store', default='en',
                      help="Choose language: ru or en")
 
 
