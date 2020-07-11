@@ -2,11 +2,11 @@ import random
 
 import allure
 from selenium.common.exceptions import NoSuchElementException
-from selenium.webdriver.support.ui import Select
+
 from selenium.webdriver.common.by import By
 from selenium.webdriver.support.ui import WebDriverWait
 from selenium.webdriver.support import expected_conditions as EC
-from selenium import webdriver
+
 import string
 
 
@@ -30,7 +30,3 @@ def test_registration(browser):
     browser.find_element_by_name('registration_submit').click()
     WebDriverWait(browser, 30).until(EC.presence_of_element_located((By.CSS_SELECTOR, '.alertinner')))
     assert is_element_present(driver=browser, how=By.CSS_SELECTOR, what='#logout_link')
-
-
-#    assert browser.find_element_by_class_name('icon-signout').text in 'Выход'
-#    assert 'Спасибо за регистрацию' in browser.find_element_by_class_name('alertinner').text
