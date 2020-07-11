@@ -1,8 +1,12 @@
 from selenium.webdriver.common.by import By
 
+from .pages.locators import ProductPageLocator
+from .pages.login_page import LoginPage
 from .pages.product_page import ProductPage
 import pytest
 import time
+
+
 
 # @pytest.mark.parametrize('link', ["http://selenium1py.pythonanywhere.com/catalogue/coders-at-work_207/?promo=offer0",
 #                                   "http://selenium1py.pythonanywhere.com/catalogue/coders-at-work_207/?promo=offer1",
@@ -31,6 +35,27 @@ import time
 #     product.go_to_productpage()
 #     product.solve_quiz_and_get_code()
 #     product.is_not_element_present(By.CSS_SELECTOR, '.alertinner ')
+
+class TestUserAddToBasketFromProductPage():
+    def test_guest_cant_see_success_message(self, browser):
+        link = 'http://selenium1py.pythonanywhere.com/catalogue/coders-at-work_207/?promo=newYear2019'
+        page = ProductPage(browser, link)
+
+        page.open()
+        login = LoginPage(browser, link)
+        login.register_new_user(str(time.time()) + "@fakemail.org",'hhhhh')
+        page.is_not_element_present(*ProductPageLocator.SUCCESS_MESSAGE)
+
+    def test_guest_can_add_product_to_basket(self, browser):
+        link = 'http://selenium1py.pythonanywhere.com/catalogue/coders-at-work_207/?promo=newYear2019'
+        page = ProductPage(browser, link)
+        page.open()
+        login = LoginPage(browser, link)
+        login.register_new_user(str(time.time()) + "@fakemail.org",'hhhhh')
+        page.go_to_productpage()
+        page.solve_quiz_and_get_code()
+        page.is_not_element_present(*ProductPageLocator.SUCCESS_MESSAGE)
+
 
 
 def test_guest_should_see_login_link_on_product_page(browser):
